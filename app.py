@@ -5,7 +5,7 @@ from models import *
 # this is for comparison purpose:
 #    SPHINCS+  -> quantum safe
 #    ECDSA     -> not quantum safe
-sig_algorithm = SignatureAlgorithm.ecdsa
+sig_algorithm = SignatureAlgorithm.sphincs_plus
 
 # Nodes creation
 node_1 = Node(sig_algorithm)
