@@ -7,9 +7,12 @@ class Node:
         self,
         algorithm: SignatureAlgorithm,
     ):
-        key_gen = KeyGenerator(algorithm)
-        self.__secret_key = key_gen.get_private_key()
-        self.__wallet_address = key_gen.get_public_key()
+        self.__key_gen = self.__init_key_gen(algorithm)
+        self.__secret_key = self.__key_gen.get_private_key()
+        self.__wallet_address = self.__key_gen.get_public_key()
+
+    def __init_key_gen(self, algorithm: SignatureAlgorithm):
+        return KeyGenerator(algorithm)
 
     def get_secret_key(self):
         return self.__secret_key
