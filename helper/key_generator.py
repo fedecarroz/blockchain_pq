@@ -21,8 +21,8 @@ class KeyGenerator:
         self.__public_key = public_key
         self.__private_key = private_key
 
-    def get_public_key(self) -> bytes:
+    def get_public_key(self):
         return self.__public_key
 
-    def get_private_key(self) -> bytes:
+    def get_private_key(self):
         return self.__private_key
