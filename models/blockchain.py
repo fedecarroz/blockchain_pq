@@ -14,7 +14,7 @@ class Blockchain:
     ):
         gen_block = self.create_genesis_block()
         self.__chain = [gen_block]
-        self.__pendingTransactions = []
+        self.__pending_transactions = []
         self.__difficulty = difficulty
 
     def create_genesis_block(self):
@@ -27,7 +27,7 @@ class Blockchain:
 
     def mine_pending_transactions(self):
         block = Block(
-            transactions=self.__pendingTransactions,
+            transactions=self.__pending_transactions,
             previous_hash=self.__chain[-1].get_hash(),
         )
 
@@ -35,13 +35,13 @@ class Blockchain:
         print("Block successfully mined!")
 
         self.__chain.append(block)
-        self.__pendingTransactions = []
+        self.__pending_transactions = []
 
     def add_transaction(self, tx: Transaction):
         if not (tx.is_valid()):
             raise Exception("Cannot add invalid transaction to chain!")
 
-        self.__pendingTransactions.append(tx)
+        self.__pending_transactions.append(tx)
 
     def get_product_information(self, productId: str):
         transactions_list: List[Transaction] = []
@@ -55,22 +55,22 @@ class Blockchain:
 
     def is_chain_valid(self):
         for i in range(1, len(self.__chain)):
-            currentBlock = self.__chain[i]
-            previousBlock = self.__chain[i - 1]
+            current_block = self.__chain[i]
+            previous_block = self.__chain[i - 1]
 
-            if not (currentBlock.has_valid_transactions()):
+            if not (current_block.has_valid_transactions()):
                 print("Not all transactions are valid!")
                 return False
 
-            curr_hash = currentBlock.get_hash()
-            curr_calc_hash = calculate_hash(currentBlock.get_message())
+            curr_hash = current_block.get_hash()
+            curr_calc_hash = calculate_hash(current_block.get_message())
 
             if curr_hash != curr_calc_hash:
                 print("Invalid hash of the block!")
                 return False
 
-            curr_prev_hash = currentBlock.get_previous_hash()
-            prev_hash = previousBlock.get_hash()
+            curr_prev_hash = current_block.get_previous_hash()
+            prev_hash = previous_block.get_hash()
 
             if curr_prev_hash != prev_hash:
                 print("Hash linking not correct!")

@@ -1,4 +1,4 @@
-from ellipticcurve.ecdsa import Ecdsa
+from ellipticcurve.ecdsa import Ecdsa, Signature
 from helper.hash import calculate_hash
 from helper.signature_algorithm import SignatureAlgorithm
 from pyspx import shake256_128f
@@ -50,7 +50,7 @@ class Transaction:
             bytes_hash_tx = bytes(hash_tx, "utf-8")
             signature: bytes = shake256_128f.sign(bytes_hash_tx, private_key)
         else:
-            signature = Ecdsa.sign(hash_tx, private_key)
+            signature: Signature = Ecdsa.sign(hash_tx, private_key)
 
         self.__signature = signature
 
