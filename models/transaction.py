@@ -18,8 +18,8 @@ class Transaction:
         self.__product_id = product_id
         self.__information = information
         self.__message = (
-            self.__convertKeysBytesToString(self.__from_address)
-            + self.__convertKeysBytesToString(self.__to_address)
+            self.__convert_keys_bytes_to_string(self.__from_address)
+            + self.__convert_keys_bytes_to_string(self.__to_address)
             + self.__product_id
             + self.__information
         )
@@ -76,7 +76,7 @@ class Transaction:
 
         return verify
 
-    def __convertKeysBytesToString(self, bytes: bytes) -> str:
+    def __convert_keys_bytes_to_string(self, bytes: bytes) -> str:
         temp = str(bytes)
         temp = temp[2:-1]
         return temp
@@ -84,8 +84,8 @@ class Transaction:
     def break_transaction(self, information):
         self.__information = information
         self.__message = (
-            self.__convertKeysBytesToString(self.__from_address)
-            + self.__convertKeysBytesToString(self.__to_address)
+            self.__convert_keys_bytes_to_string(self.__from_address)
+            + self.__convert_keys_bytes_to_string(self.__to_address)
             + self.__product_id
             + self.__information
         )
