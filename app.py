@@ -76,8 +76,8 @@ bc.mine_pending_transactions()
 ############################################################
 #                                                          #
 # Code to break the chain (uncomment to try)               #
-# ricoin.break_chain(1, product_1_id, "Wrong information") #
-# ricoin.break_mining(1, node.get_secret_key())            #
+# bc.break_chain(1, product_1_id, "Wrong information")     #
+# bc.break_mining(1, node.get_secret_key())                #
 #                                                          #
 ############################################################
 
