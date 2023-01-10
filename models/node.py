@@ -1,5 +1,5 @@
-from helper.key_generator import KeyGenerator
-from helper.signature_algorithm import SignatureAlgorithm
+from helpers.key_generator import KeyGenerator
+from helpers.signature_algorithm import SignatureAlgorithm
 
 
 class Node:

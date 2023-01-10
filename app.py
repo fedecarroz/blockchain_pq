@@ -1,4 +1,4 @@
-from helper import *
+from helpers import *
 from models import *
 
 # Define signature algorithm (sphincs_plus / ecdsa)

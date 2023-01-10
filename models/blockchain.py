@@ -1,7 +1,7 @@
 from typing import List
 
-from helper.hash import calculate_hash
-from helper.random_string_generator import get_random_string
+from helpers.hash import calculate_hash
+from helpers.random_string_generator import get_random_string
 
 from models.block import Block
 from models.transaction import Transaction

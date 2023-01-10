@@ -1,6 +1,6 @@
 from ellipticcurve.ecdsa import Ecdsa, Signature
-from helper.hash import calculate_hash
-from helper.signature_algorithm import SignatureAlgorithm
+from helpers.hash import calculate_hash
+from helpers.signature_algorithm import SignatureAlgorithm
 from pyspx import shake_128f
 
 

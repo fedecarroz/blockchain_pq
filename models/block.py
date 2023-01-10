@@ -1,6 +1,6 @@
 from typing import List
 
-from helper import Timestamp, calculate_hash
+from helpers import Timestamp, calculate_hash
 
 from models.transaction import Transaction
 

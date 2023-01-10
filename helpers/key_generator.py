@@ -3,7 +3,7 @@ from os import urandom
 from ellipticcurve.privateKey import PrivateKey
 from pyspx import shake_128f
 
-from helper.signature_algorithm import SignatureAlgorithm
+from helpers.signature_algorithm import SignatureAlgorithm
 
 
 class KeyGenerator:
