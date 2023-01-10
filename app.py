@@ -1,4 +1,3 @@
-from helpers import *
 from models import *
 
 # Define signature algorithm (sphincs_plus / ecdsa)
@@ -81,7 +80,7 @@ bc.mine_pending_transactions()
 #                                                          #
 ############################################################
 
-# Print all informations about one product
+# Print all information about one product
 print("\nInformation about PRODUCT 1:")
 infos = bc.get_product_information(product_1_id)
 for info in infos:
