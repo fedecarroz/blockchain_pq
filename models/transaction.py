@@ -1,27 +1,27 @@
 from ellipticcurve.ecdsa import Ecdsa, Signature
 from helpers.hash import calculate_hash
-from helpers.signature_algorithm import SignatureAlgorithm
-from pyspx import shake_128f
+from modular_signature.signature_algorithm import SignatureAlgorithm
+from pyspx import haraka_256f
 
 
 class Transaction:
     def __init__(
-        self,
-        from_address,
-        to_address,
-        product_id: str,
-        information: str,
-        algorithm: SignatureAlgorithm,
+            self,
+            from_address,
+            to_address,
+            product_id: str,
+            information: str,
+            algorithm: SignatureAlgorithm,
     ):
         self.__from_address = from_address
         self.__to_address = to_address
         self.__product_id = product_id
         self.__information = information
         self.__message = (
-            self.__convert_keys_bytes_to_string(self.__from_address)
-            + self.__convert_keys_bytes_to_string(self.__to_address)
-            + self.__product_id
-            + self.__information
+                self.__convert_keys_bytes_to_string(self.__from_address)
+                + self.__convert_keys_bytes_to_string(self.__to_address)
+                + self.__product_id
+                + self.__information
         )
         self.__algorithm = algorithm
 
@@ -48,7 +48,7 @@ class Transaction:
 
         if self.__algorithm == SignatureAlgorithm.sphincs_plus:
             bytes_hash_tx = bytes(hash_tx, "utf-8")
-            signature: bytes = shake_128f.sign(bytes_hash_tx, private_key)
+            signature: bytes = haraka_256f.sign(bytes_hash_tx, private_key)
         else:
             signature: Signature = Ecdsa.sign(hash_tx, private_key)
 
@@ -62,7 +62,7 @@ class Transaction:
 
         if self.__algorithm == SignatureAlgorithm.sphincs_plus:
             bytes_hash_tx = bytes(hash_tx, "utf-8")
-            verify = shake_128f.verify(
+            verify = haraka_256f.verify(
                 bytes_hash_tx,
                 self.__signature,
                 self.__from_address,
@@ -84,8 +84,8 @@ class Transaction:
     def break_transaction(self, information):
         self.__information = information
         self.__message = (
-            self.__convert_keys_bytes_to_string(self.__from_address)
-            + self.__convert_keys_bytes_to_string(self.__to_address)
-            + self.__product_id
-            + self.__information
+                self.__convert_keys_bytes_to_string(self.__from_address)
+                + self.__convert_keys_bytes_to_string(self.__to_address)
+                + self.__product_id
+                + self.__information
         )

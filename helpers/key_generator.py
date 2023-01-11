@@ -1,9 +1,9 @@
 from os import urandom
 
 from ellipticcurve.privateKey import PrivateKey
-from pyspx import shake_128f
+from pyspx import haraka_256f
 
-from helpers.signature_algorithm import SignatureAlgorithm
+from modular_signature.signature_algorithm import SignatureAlgorithm
 
 
 class KeyGenerator:
@@ -12,8 +12,8 @@ class KeyGenerator:
         algorithm: SignatureAlgorithm,
     ):
         if algorithm == SignatureAlgorithm.sphincs_plus:
-            seed = urandom(shake_128f.crypto_sign_SEEDBYTES)
-            public_key, private_key = shake_128f.generate_keypair(seed)
+            seed = urandom(haraka_256f.crypto_sign_SEEDBYTES)
+            public_key, private_key = haraka_256f.generate_keypair(seed)
         else:
             private_key = PrivateKey()
             public_key = private_key.publicKey()
