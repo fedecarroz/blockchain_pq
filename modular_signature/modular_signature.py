@@ -1,4 +1,5 @@
-from modular_signature import SignatureAlgorithm, ModularSignatureMethod
+from modular_signature.signature_algorithm import SignatureAlgorithm
+from modular_signature.modular_signature_method import ModularSignatureMethod
 
 
 class ModularSignature:

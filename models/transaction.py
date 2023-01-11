@@ -1,7 +1,5 @@
-from ellipticcurve.ecdsa import Ecdsa, Signature
 from helpers.hash import calculate_hash
-from modular_signature.signature_algorithm import SignatureAlgorithm
-from pyspx import haraka_256f
+from modular_signature import ModularSignatureMethod
 
 
 class Transaction:
@@ -11,7 +9,7 @@ class Transaction:
             to_address,
             product_id: str,
             information: str,
-            algorithm: SignatureAlgorithm,
+            sign_method: ModularSignatureMethod,
     ):
         self.__from_address = from_address
         self.__to_address = to_address
@@ -23,7 +21,8 @@ class Transaction:
                 + self.__product_id
                 + self.__information
         )
-        self.__algorithm = algorithm
+        self.__sign_method = sign_method
+        self.__signature = None
 
     def get_from_address(self):
         return self.__from_address
@@ -46,35 +45,14 @@ class Transaction:
 
         hash_tx = calculate_hash(self.__message)
 
-        if self.__algorithm == SignatureAlgorithm.sphincs_plus:
-            bytes_hash_tx = bytes(hash_tx, "utf-8")
-            signature: bytes = haraka_256f.sign(bytes_hash_tx, private_key)
-        else:
-            signature: Signature = Ecdsa.sign(hash_tx, private_key)
-
-        self.__signature = signature
+        self.__signature = self.__sign_method.sign(hash_tx, private_key)
 
     def is_valid(self):
-        if not (self.__signature):
+        if not self.__signature:
             raise Exception("No signature in the transaction!")
 
         hash_tx = calculate_hash(self.__message)
-
-        if self.__algorithm == SignatureAlgorithm.sphincs_plus:
-            bytes_hash_tx = bytes(hash_tx, "utf-8")
-            verify = haraka_256f.verify(
-                bytes_hash_tx,
-                self.__signature,
-                self.__from_address,
-            )
-        else:
-            verify = Ecdsa.verify(
-                hash_tx,
-                self.__signature,
-                self.__from_address,
-            )
-
-        return verify
+        return self.__sign_method.verify(hash_tx, self.__from_address, self.__signature)
 
     def __convert_keys_bytes_to_string(self, bytes: bytes) -> str:
         temp = str(bytes)
