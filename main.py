@@ -1,7 +1,10 @@
 from models import *
 from modular_signature import *
 
+# Init modular signature
 modular_signature = ModularSignature()
+
+# Add modular signature methods
 modular_signature.add_signature_method(
     SignatureAlgorithm.ecdsa,
     ModularECDSA(),
@@ -11,6 +14,7 @@ modular_signature.add_signature_method(
     ModularSPHINCSPLUS(),
 )
 
+# Select a signature method
 sign_method = modular_signature.get_signature_method(SignatureAlgorithm.sphincs_plus)
 
 # Nodes creation
