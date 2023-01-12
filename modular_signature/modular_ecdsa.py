@@ -1,6 +1,7 @@
 from modular_signature.modular_signature_method import ModularSignatureMethod
 from ellipticcurve.ecdsa import Ecdsa, Signature
 from ellipticcurve.privateKey import PrivateKey
+from ellipticcurve.publicKey import PublicKey
 
 
 class ModularECDSA(ModularSignatureMethod):
@@ -11,8 +12,11 @@ class ModularECDSA(ModularSignatureMethod):
         return pk.toDer(), sk.toDer()
 
     def sign(self, msg_hash: str, private_key: bytes) -> bytes:
-        signature: Signature = Ecdsa.sign(msg_hash, private_key)
+        priv_key = PrivateKey.fromDer(private_key)
+        signature: Signature = Ecdsa.sign(msg_hash, priv_key)
         return signature.toDer()
 
     def verify(self, msg_hash: str, public_key: bytes, signature: bytes) -> bool:
-        return Ecdsa.verify(msg_hash, signature, public_key)
+        pub_key = PublicKey.fromDer(public_key)
+        sign = Signature.fromDer(signature)
+        return Ecdsa.verify(msg_hash, sign, pub_key)

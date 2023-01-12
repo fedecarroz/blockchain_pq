@@ -31,6 +31,9 @@ class Blockchain:
             previous_hash=self.__chain[-1].get_hash(),
         )
 
+        if not (block.has_valid_transactions()):
+            raise Exception("Block contains invalid transactions!")
+
         block.mine_block(self.__difficulty)
         print("Block successfully mined!")
 
@@ -43,12 +46,12 @@ class Blockchain:
 
         self.__pending_transactions.append(tx)
 
-    def get_product_information(self, productId: str):
+    def get_product_information(self, product_id: str):
         transactions_list: List[Transaction] = []
 
         for block in self.__chain:
             for transaction in block.get_transactions():
-                if transaction.get_product_id() == productId:
+                if transaction.get_product_id() == product_id:
                     transactions_list.append(transaction)
 
         return transactions_list
